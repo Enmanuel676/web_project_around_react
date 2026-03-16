@@ -1,0 +1,83 @@
+.image__card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  z-index: 999;
+}
+
+.image__card_hidden {
+  display: block;
+}
+
+.image__wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.image__container {
+  position: relative;
+  display: inline-block;
+}
+
+.image__show {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+
+.image__close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/exit.png);
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.image__name {
+  color: white;
+  font-size: 12px;
+  margin-top: 10px;
+  font-family: "Inter", Arial, sans-serif;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .image__close {
+    width: 30px;
+    height: 30px;
+    top: -15px;
+    right: -15px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .image__close {
+    width: 26px;
+    height: 26px;
+    top: -13px;
+    right: -13px;
+  }
+
+  .image__show {
+    max-width: 90vw;
+    max-height: 70vh;
+  }
+
+  .image__name {
+    font-size: 10px;
+  }
+}
