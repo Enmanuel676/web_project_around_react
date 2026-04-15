@@ -1,40 +1,33 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Popup from "./components/Popup/Popup.jsx";
 import NewCard from "./components/form/NewCard/NewCard.jsx";
 import EditProfile from "./components/form/EditProfile/EditProfile.jsx";
 import EditAvatar from "./components/form/EditAvatar/EditAvatar.jsx";
 import Card from "./components/Card/Card.jsx";
 import ImagePopup from "./components/ImagePopup/ImagePopup.jsx";
-import api from "../../utils/api.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-function Main() {
-  const currentUser = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-  const [popup, setPopup] = useState(null);
-
-  useEffect(() => {
-    api
-      .getCardList()
-      .then((data) => setCards(data))
-      .catch(console.error);
-  }, []);
+function Main({
+  onOpenPopup,
+  onClosePopup,
+  popup,
+  cards,
+  onCardLike,
+  onCardDelete,
+  onAddPlaceSubmit,
+}) {
+  const { currentUser } = useContext(CurrentUserContext);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+  const newCardPopup = {
+    title: "Nuevo lugar",
+    children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} />,
+  };
   const editProfilePopup = {
     title: "Editar Perfil",
     children: <EditProfile />,
   };
   const editAvatarPopup = { title: "Editar Avatar", children: <EditAvatar /> };
-
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-  }
 
   function handleCardImageClick(card) {
     setSelectedCard(card);
@@ -52,7 +45,7 @@ function Main() {
             src={currentUser.avatar}
             className="profile__avatar"
             alt="Avatar de perfil"
-            onClick={() => handleOpenPopup(editAvatarPopup)}
+            onClick={() => onOpenPopup(editAvatarPopup)}
             style={{ cursor: "pointer" }}
           />
           <div className="profile__info">
@@ -60,14 +53,14 @@ function Main() {
             <button
               className="profile__info-link"
               type="button"
-              onClick={() => handleOpenPopup(editProfilePopup)}
+              onClick={() => onOpenPopup(editProfilePopup)}
             ></button>
             <p className="profile__info-description">{currentUser.about}</p>
           </div>
           <button
             className="profile__info_add"
             type="button"
-            onClick={() => handleOpenPopup(newCardPopup)}
+            onClick={() => onOpenPopup(newCardPopup)}
           ></button>
         </div>
 
@@ -77,13 +70,15 @@ function Main() {
               key={card._id}
               card={card}
               onImageClick={handleCardImageClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </div>
       </main>
 
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}

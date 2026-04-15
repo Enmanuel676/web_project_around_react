@@ -1,5 +1,13 @@
-export default function Card({ card, onImageClick }) {
+export default function Card({ card, onImageClick, onCardLike, onCardDelete }) {
   const { name, link, isLiked } = card;
+
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
 
   return (
     <div className="grid__card">
@@ -8,6 +16,7 @@ export default function Card({ card, onImageClick }) {
           aria-label="Delete card"
           className="card__delete"
           type="button"
+          onClick={handleDeleteClick}
         />
         <img
           src={link}
@@ -22,6 +31,7 @@ export default function Card({ card, onImageClick }) {
         aria-label="Like card"
         type="button"
         className={`grid__like${isLiked ? " grid__like_active" : ""}`}
+        onClick={handleLikeClick}
       />
     </div>
   );
