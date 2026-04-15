@@ -1,15 +1,18 @@
-function EditAvatar() {
+export default function EditAvatar() {
   return (
-    <form class="edit__avatar-form" type="submit">
-      <h3 class="edit__avatar-title">Cambiar foto de perfil</h3>
+    <form name="avatar-form" noValidate>
       <input
-        class="edit__avatar-input"
-        placeholder="Ingrese la URL"
-        value=""
-        id="avatar"
+        className="popup__input"
+        type="url"
+        name="avatar"
+        placeholder="Ingrese la URL de la imagen"
+        required
       />
-      <button class="edit__avatar-button">Guardar</button>
+      <p className="popup__line"></p>
+      <span className="popup__input_type_error" id="avatar-error"></span>
+      <button className="popup__button_disabled" type="submit">
+        Guardar
+      </button>
     </form>
   );
 }
-export default EditAvatar;

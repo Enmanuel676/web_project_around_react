@@ -1,33 +1,29 @@
-function NewCard() {
+export default function NewCard() {
   return (
-    <form class="popup__form popup__form_cards" id="cards">
-      <h2 class="popup__form_title">Nueva Trajeta</h2>
+    <form name="card-form" noValidate>
       <input
+        className="popup__input"
         type="text"
         name="title"
-        id="title"
-        class="popup__input"
         placeholder="Título"
         required
-        minlength="2"
-        maxlength="30"
+        minLength="2"
+        maxLength="30"
       />
-      <p class="popup__line"></p>
-      <span class="popup__input_type_error" id="title-error"></span>
+      <p className="popup__line"></p>
+      <span className="popup__input_type_error" id="title-error"></span>
       <input
+        className="popup__input popup__input_content"
         type="url"
         name="url"
-        id="url"
-        class="popup__input popup__input_content"
-        placeholder="URL"
+        placeholder="URL de la imagen"
         required
       />
-      <p class="popup__line"></p>
-      <span class="popup__input_type_error" id="url-error"></span>
-      <button class="popup__button" type="submit" id="save">
+      <p className="popup__line"></p>
+      <span className="popup__input_type_error" id="url-error"></span>
+      <button className="popup__button" type="submit">
         Crear
       </button>
     </form>
   );
 }
-export default NewCard;
